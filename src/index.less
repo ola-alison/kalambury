@@ -1,5 +1,23 @@
-h1 {
-  .less {
-    color: red;
-  }
+@colorAdd: #648;
+@colorDraw: #925;
+
+body {
+  font-family: sans-serif;
+}
+
+#button-add,
+#button-draw {
+  color: #fff;
+  border-radius: 5px;
+  padding: 5px 10px;
+  cursor: pointer;
+  display: inline-block;
+}
+
+#button-add {
+  background-color: @colorAdd;
+}
+
+#button-draw {
+  background-color: @colorDraw;
 }

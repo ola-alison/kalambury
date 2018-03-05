@@ -1,0 +1,35 @@
+{
+  "name": "esnext-starter-pack",
+  "version": "1.0.0",
+  "description": "Starter pack for Javascript learning",
+  "repository": "https://github.com/gmichlicki-neducatio/esnext-starter-pack",
+  "main": "index.js",
+  "babel": {
+    "presets": [
+      "env"
+    ]
+  },
+  "browserslist": "> 1%, last 2 versions, Firefox ESR",
+  "scripts": {
+    "start": "webpack-dev-server"
+  },
+  "author": "Grzegorz Michlicki <gmichlicki@n-educatio.pl>",
+  "license": "MIT",
+  "devDependencies": {
+    "autoprefixer": "^8.0.0",
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-preset-env": "^1.6.1",
+    "css-loader": "^0.28.9",
+    "file-loader": "^1.1.6",
+    "html-webpack-plugin": "^2.30.1",
+    "less": "^3.0.0",
+    "less-loader": "^4.0.5",
+    "node-sass": "^4.7.2",
+    "postcss-loader": "^2.1.0",
+    "sass-loader": "^6.0.6",
+    "style-loader": "^0.20.1",
+    "webpack": "^3.11.0",
+    "webpack-dev-server": "^2.11.1"
+  }
+}

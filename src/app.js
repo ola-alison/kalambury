@@ -1,5 +1,5 @@
 
-let phraseCollection = [];
+let phraseCollection = ["pies", "kot", "chomik", "żółw", "papuga"];
 let input = document.getElementById("phrase-item");
 let btnAdd = document.getElementById("button-add");
 let btnDraw = document.getElementById("button-draw");
@@ -19,20 +19,21 @@ btnAdd.onclick = function addPhrase() {
   console.log(phraseCollection);
 
   document.getElementById("phrase-list").appendChild(phraseP).innerHTML = phrase;
+  input.value = "";
 }
 
 btnDraw.onclick = function drawPhrase() {
 
-  let phraseRandom;
+  let phraseRandom1, phraseRandom2;
 
-  if (Object.keys(phraseCollection).length > 1) {
-    phraseRandom = phraseCollection[Math.floor(Math.random()*phraseCollection.length)];
+  phraseRandom1 = phraseCollection[Math.floor(Math.random()*phraseCollection.length)];
+  phraseRandom2 = phraseCollection[Math.floor(Math.random()*phraseCollection.length)];
+
+  while (phraseRandom2 === phraseRandom1) {
+    phraseRandom2 = phraseCollection[Math.floor(Math.random()*phraseCollection.length)];
   }
-  else {
-    phraseRandom = "*** add something first ***";
-  }
 
-  console.log(phraseRandom);
+  console.log(phraseRandom1, phraseRandom2);
 
-  document.getElementById("phrase-random").innerHTML = phraseRandom;
+  document.getElementById("phrase-random").innerHTML = `wybierz hasło: <strong>${phraseRandom1}</strong> lub <strong>${phraseRandom2}</strong>`;
 }

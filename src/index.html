@@ -4,17 +4,38 @@
     <meta charset="UTF-8">
     <title>kalambury</title>
 	</head>
+
 	<body>
-		<h2>Kalambury</h2>
+    <div class="main-container">
 
-    <input type="text" id="phrase-item" name="phrase-item"/>
+      <header>
+        <h3>Kalambury</h3>
+        <p>Play charades with your friends!</p>
+      </header>
 
-    <p id="button-add">dodaj hasło</p>
+      <div class="kalambury-container">
+        <div class="kalambury-proper section">
+          <p id="phrase-random"></p>
+          <button id="button-draw" class="button">Draw phrase</button>
+        </div>
 
-    <div id="phrase-list"></div>
+        <div class="kalambury-manage-phrases section">
 
-    <p id="button-draw">losuj hasło</p>
+          <p class="kalambury-manage-phrases-btn">Manage phrase collection</p>
 
-    <div id="phrase-random"></div>
+          <div>
+            <div class="kalambury-new-phrases">
+              <input type="text" id="phrase-item" name="phrase-item"/>
+              <button id="button-add" class="button">Add phrase</button>
+              <p id="phrase-added" class="message hidden">Phrase <span id="new-phrase"></span> added!</p>
+            </div>
+
+            <div id="all-phrases-list"></div>
+
+          </div>
+        </div>
+      </div>
+
+    </div>
 	</body>
 </html>

@@ -1,23 +1,54 @@
-@colorAdd: #648;
-@colorDraw: #925;
-
-body {
-  font-family: sans-serif;
+html, body, div, p, span {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
 }
 
-#button-add,
-#button-draw {
-  color: #fff;
-  border-radius: 5px;
-  padding: 5px 10px;
-  cursor: pointer;
+.message.hidden {
+  display: none;
+}
+.message.visible {
   display: inline-block;
 }
 
-#button-add {
-  background-color: @colorAdd;
+#new-phrase {
+  font-weight: 600;
 }
 
-#button-draw {
-  background-color: @colorDraw;
+
+.button {
+  cursor: pointer;
+
+  &:active {
+
+  }
+  &:focus {
+    outline-width: 0;
+  }
+}
+
+.btn-remove {
+  background-color: red;
+}
+.btn-deactivate {
+  background-color: orange;
+}
+.btn-activate {
+  background-color: lime;
+}
+
+
+.kalambury-manage-phrases {
+
+
+  .inactive {
+    text-decoration: line-through;
+    color: #999;
+  }
+}
+
+.kalambury-manage-phrases-btn {
+  cursor: pointer;
 }

@@ -7,6 +7,7 @@ let phraseCollection = [];
 let input = document.getElementById("phrase-item");
 let btnAdd = document.getElementById("button-add");
 let btnDraw = document.getElementById("button-draw");
+
 let phrase = {};
 
 // --------------------- ADD NEW PHRASE -----------------------
@@ -28,10 +29,8 @@ let addPhrase = () => {
       method: "POST",
       data: phrase,
       success: function(resp) {
-        console.log(phrase, resp);
       },
       error: function(resp) {
-        console.log(resp);
       }
     })
 
@@ -58,7 +57,6 @@ let removePhrase = function() {
   this.parentNode.remove();
 
   let toBeRemoved = this.parentNode.getAttribute("data-id");
-  console.log(API.length);
 
   $.ajax( {
     url: API + toBeRemoved,
@@ -76,16 +74,16 @@ let deactivatePhrase = function() {
 
   let toBeDeactivated = this.parentNode.getAttribute("data-id");
 
-  this.parentNode.classList.add("inactive");
-  this.parentNode.classList.remove("active");
-
+  let oldPhrase = phraseCollection.find( phrase => phrase.id === parseInt(toBeDeactivated, 10) );
 
   $.ajax( {
     url: API + toBeDeactivated,
     method: "PATCH",
     data: {status: 'inactive'},
-    success: function(resp) {
-      // showPhrases();
+    success: (resp) => {
+      this.parentNode.classList.add("inactive");
+      this.parentNode.classList.remove("active");
+      oldPhrase.status = resp.status;
     },
     error: function(resp) {
     }
@@ -96,19 +94,19 @@ let deactivatePhrase = function() {
 let activatePhrase = function() {
 
   let toBeActivated = this.parentNode.getAttribute("data-id");
-
-  this.parentNode.classList.add("active");
-  this.parentNode.classList.remove("inactive");
+  let oldPhrase = phraseCollection.find( phrase => phrase.id === parseInt(toBeActivated, 10) );
 
   $.ajax( {
     url: API + toBeActivated,
     method: "PATCH",
     data: {status: 'active'},
-    success: function(resp) {
-      // showPhrases();
-      phraseCollection.push(resp);
+    success: (resp) => {
+      this.parentNode.classList.add("active");
+      this.parentNode.classList.remove("inactive");
+      oldPhrase.status = resp.status;
     },
     error: function(resp) {
+
     }
   })
 }
@@ -124,17 +122,18 @@ btnDraw.onclick = function drawPhrase() {
     return phrase.status === "active";
   });
 
-
   if (activePhrases.length > 0) {
     phraseRandom = activePhrases[Math.floor(Math.random()*activePhrases.length)];
+
+    let oldPhrase = phraseCollection.find( phrase => phrase.id === phraseRandom.id );
 
     $.ajax( {
       url: API + phraseRandom.id,
       method: "PATCH",
       data: {status: 'inactive'},
       success: function(resp) {
-        showPhrases();
-        console.log("HERE", phraseRandom.id)
+        oldPhrase.status = resp.status;
+        $("[data-id=" + phraseRandom.id + "]").addClass("inactive").removeClass("active");
       },
       error: function(resp) {
       }

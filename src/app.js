@@ -57,11 +57,13 @@ let removePhrase = function() {
   this.parentNode.remove();
 
   let toBeRemoved = this.parentNode.getAttribute("data-id");
+  let oldPhrase = phraseCollection.find( phrase => phrase.id === parseInt(toBeRemoved, 10) );
 
   $.ajax( {
     url: API + toBeRemoved,
     method: "DELETE",
     success: function(resp) {
+      phraseCollection.splice(phraseCollection.indexOf(oldPhrase), 1);
     },
     error: function(resp) {
     }
@@ -69,44 +71,21 @@ let removePhrase = function() {
 
 }
 
+let changeStatus = function(status) {
 
-let deactivatePhrase = function() {
-
-  let toBeDeactivated = this.parentNode.getAttribute("data-id");
-
-  let oldPhrase = phraseCollection.find( phrase => phrase.id === parseInt(toBeDeactivated, 10) );
+  let toBeChanged = this.parentNode.getAttribute("data-id");
+  let oldPhrase = phraseCollection.find( phrase => phrase.id === parseInt(toBeChanged, 10) );
 
   $.ajax( {
-    url: API + toBeDeactivated,
+    url: API + toBeChanged,
     method: "PATCH",
-    data: {status: 'inactive'},
+    data: {status: status},
     success: (resp) => {
-      this.parentNode.classList.add("inactive");
-      this.parentNode.classList.remove("active");
+      this.parentNode.classList.remove("active", "inactive");
+      this.parentNode.classList.add(status);
       oldPhrase.status = resp.status;
     },
     error: function(resp) {
-    }
-  })
-}
-
-
-let activatePhrase = function() {
-
-  let toBeActivated = this.parentNode.getAttribute("data-id");
-  let oldPhrase = phraseCollection.find( phrase => phrase.id === parseInt(toBeActivated, 10) );
-
-  $.ajax( {
-    url: API + toBeActivated,
-    method: "PATCH",
-    data: {status: 'active'},
-    success: (resp) => {
-      this.parentNode.classList.add("active");
-      this.parentNode.classList.remove("inactive");
-      oldPhrase.status = resp.status;
-    },
-    error: function(resp) {
-
     }
   })
 }
@@ -190,8 +169,8 @@ let showPhrases = () => {
         phraseCollectionActivate.classList.add("btn-activate", "button");
 
         phraseCollectionRemove.onclick = removePhrase.bind(phraseCollectionRemove);
-        phraseCollectionDeactivate.onclick = deactivatePhrase.bind(phraseCollectionDeactivate);
-        phraseCollectionActivate.onclick = activatePhrase.bind(phraseCollectionActivate);
+        phraseCollectionDeactivate.onclick = changeStatus.bind(phraseCollectionDeactivate, "inactive");
+        phraseCollectionActivate.onclick = changeStatus.bind(phraseCollectionActivate, "active");
       };
     },
 

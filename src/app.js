@@ -29,13 +29,13 @@ let addPhrase = () => {
       method: "POST",
       data: phrase,
       success: function(resp) {
+        showPhrases();
       },
       error: function(resp) {
       }
     })
 
     input.value = "";
-    showPhrases();
   }
   else {
     alert("Insert phrase first.");
@@ -88,6 +88,22 @@ let changeStatus = function(status) {
     error: function(resp) {
     }
   })
+}
+
+document.getElementById("button-activate-all").onclick = function activateAll() {
+  let buttons = $(".list-item.inactive .btn-activate ");
+
+  for (let i = 0; i < buttons.length; i++) {
+    changeStatus.call(buttons[i], "active");
+  }
+}
+
+document.getElementById("button-deactivate-all").onclick = function deactivateAll() {
+  let buttons = $(".list-item.active .btn-deactivate ");
+
+  for (let i = 0; i < buttons.length; i++) {
+    changeStatus.call(buttons[i], "inactive");
+  }
 }
 
 

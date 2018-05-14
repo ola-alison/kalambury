@@ -66,7 +66,7 @@ header {
   font-family: 'Englebert', sans-serif;
   margin: 2px;
   transition: background-color 0.35s;
-  min-width: 70px;
+  min-width: 75px;
   &:active {
 
   }
@@ -111,29 +111,6 @@ header {
     right: -40px;
     bottom: -10px;
   }
-}
-
-.btn-remove {
-  background-color: @color5;
-  &:hover {
-    background-color: darken(@color5, 15%);
-  }
-}
-.btn-deactivate {
-  background-color: @color2;
-  &:hover {
-    background-color: darken(@color2, 15%);
-  }
-}
-.btn-activate {
-  background-color: @color3;
-  &:hover {
-    background-color: darken(@color3, 15%);
-  }
-}
-
-.button-change-status {
-
 }
 
 .post-it {
@@ -231,6 +208,27 @@ header {
   }
 }
 
+.btn-remove,
+#button-deactivate-all {
+  background-color: @color5;
+  &:hover {
+    background-color: darken(@color5, 15%);
+  }
+}
+.btn-deactivate,
+#button-activate-all {
+  background-color: @color2;
+  &:hover {
+    background-color: darken(@color2, 15%);
+  }
+}
+.btn-activate {
+  background-color: @color3;
+  &:hover {
+    background-color: darken(@color3, 15%);
+  }
+}
+
 .message {
   margin-bottom:  10px;
   &.hidden {
@@ -260,6 +258,11 @@ header {
   margin-bottom: 20px;
   transition: max-height 0.5s;
   .box-shadow();
+
+  .buttons-status-all {
+    text-align: right;
+    margin-bottom: 10px;
+  }
 
   &.open {
     max-height: 1000px;

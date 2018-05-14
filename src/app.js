@@ -53,7 +53,6 @@ let clearList = () => {
   document.getElementById("all-phrases-list").innerHTML = "";
 }
 
-
 let removePhrase = function() {
 
   this.parentNode.remove();
@@ -86,7 +85,7 @@ let deactivatePhrase = function() {
     method: "PATCH",
     data: {status: 'inactive'},
     success: function(resp) {
-      showPhrases();
+      // showPhrases();
     },
     error: function(resp) {
     }
@@ -106,7 +105,8 @@ let activatePhrase = function() {
     method: "PATCH",
     data: {status: 'active'},
     success: function(resp) {
-      showPhrases();
+      // showPhrases();
+      phraseCollection.push(resp);
     },
     error: function(resp) {
     }
@@ -134,17 +134,20 @@ btnDraw.onclick = function drawPhrase() {
       data: {status: 'inactive'},
       success: function(resp) {
         showPhrases();
+        console.log("HERE", phraseRandom.id)
       },
       error: function(resp) {
       }
     })
 
     document.getElementById("phrase-random").innerHTML = `Your phrase is: <strong>${phraseRandom.item}</strong>`;
+    let toBeDeactivated = phraseRandom.id;
   }
 
   else {
     alert("There are no active phrases to draw from.");
   }
+
 
 }
 
@@ -174,10 +177,12 @@ let showPhrases = () => {
 
         phraseCollectionP.setAttribute('data-id', phraseCollection[i].id);
         phraseCollectionP.className = phraseCollection[i].status;
+        phraseCollectionP.classList.add("list-item");
 
-        console.log(phraseCollection[i]);
+        allPhrasesList.appendChild(phraseCollectionP).innerHTML = '<span>' + phraseCollection[i].item + '</span>';
 
-        allPhrasesList.appendChild(phraseCollectionP).innerHTML = '<span class="all-phrases-list-item">' + phraseCollection[i].item + '</span>';
+        allPhrasesList.appendChild(phraseCollectionP).appendChild(phraseCollectionRemove).innerHTML = "remove";
+        phraseCollectionRemove.classList.add("btn-remove", "button");
 
         allPhrasesList.appendChild(phraseCollectionP).appendChild(phraseCollectionDeactivate).innerHTML = 'deactivate';
         phraseCollectionDeactivate.classList.add("btn-deactivate", "button");
@@ -185,19 +190,13 @@ let showPhrases = () => {
         allPhrasesList.appendChild(phraseCollectionP).appendChild(phraseCollectionActivate).innerHTML = 'activate';
         phraseCollectionActivate.classList.add("btn-activate", "button");
 
-        allPhrasesList.appendChild(phraseCollectionP).appendChild(phraseCollectionRemove).innerHTML = "remove";
-        phraseCollectionRemove.classList.add("btn-remove", "button");
-
         phraseCollectionRemove.onclick = removePhrase.bind(phraseCollectionRemove);
         phraseCollectionDeactivate.onclick = deactivatePhrase.bind(phraseCollectionDeactivate);
         phraseCollectionActivate.onclick = activatePhrase.bind(phraseCollectionActivate);
       };
-
-      console.log("get ", phraseCollection);
     },
 
     error: function(resp) {
-      console.log("Error", resp);
     },
   })
 }
